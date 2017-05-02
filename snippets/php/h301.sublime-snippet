@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[
+	header("HTTP/1.0 301 Moved Permanently"); 
+	header("Location: $0");
+	exit();
+]]></content>
+	<tabTrigger>h301</tabTrigger>
+</snippet>

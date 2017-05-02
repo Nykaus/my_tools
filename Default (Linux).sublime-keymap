@@ -1,0 +1,50 @@
+[
+	//ctrl+alt+ .... existant natif
+	/*
+	{ "keys": ["ctrl+alt+up"], "command": "select_lines", "args": {"forward": false} },
+	{ "keys": ["ctrl+alt+down"], "command": "select_lines", "args": {"forward": true} },
+	{ "keys": ["ctrl+alt+shift+p"], "command": "show_scope_name" },
+	{ "keys": ["ctrl+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
+		 "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+	},
+	*/
+
+	//modification 
+	{ "keys": ["ctrl+backspace"], "command": "show_panel", "args": {"panel": "console", "toggle": true} }
+	// info_seo 	w, l, m, g, t, h
+	// myTools.py  	f, q, v, c, s, x, space, keypad_plus, keypad_minus,keypad_divide, keypad_multiply
+		
+		// recuperation du chemin du fichier lu
+		,{ "keys": ["ctrl+alt+p"]              , "command": "get_path"} 
+			// recuper la liste des fichiers existant en fonction d'un chemin selectionner (utiliser avec get_path)
+			,{ "keys": ["ctrl+alt+f"]              , "command": "get_file"} 
+		// ajouter des lignes dans la console de sublime txt
+		,{ "keys": ["ctrl+alt+v"]              , "command": "clear_console"}
+		// par le nombre de multiselection remplace par une numerotation a la place 1,2,3...
+		,{ "keys": ["ctrl+alt+c"]              , "command": "numerotation"}
+		// en selectionnant un numero on l'incremante
+		,{ "keys": ["ctrl+alt+keypad_plus"]    , "command": "plus_one"}
+		// en selectionnant un numero on le decremante
+		,{ "keys": ["ctrl+alt+keypad_minus"]   , "command": "minus_one"}
+		// pour supprimer les multiselections et revenir avec un curseur
+		,{ "keys": ["ctrl+alt+s"]              , "command": "merge_multi_selection"}
+		// switcher avec 2 elements selectionner
+		,{ "keys": ["ctrl+alt+space"]          , "command": "switch"}
+		// en selectionnant une soustraction d'heures -> "HH:MM - HH:MM" ils calcul la difference =>  7:57	10:24-18:21
+		,{ "keys": ["ctrl+alt+keypad_divide"]  , "command": "diff_heure"} 
+		// en selectionnant plusieurs heures avec le format "HH:MM" 
+		//  		18:21
+		// = 28:45	10:24
+		// = 39:9	10:24
+		// = 49:33	10:24 	
+
+		,{ "keys": ["ctrl+alt+keypad_multiply"], "command": "sum_heure"} 
+		// fais un tampon de l'heure actuel 19:42
+		,{ "keys": ["ctrl+alt+x"]              , "command": "stamp_heure"}
+		// test
+		,{ "keys": ["ctrl+alt+k"]              , "command": "get_calendar"}
+
+]
+
+
+ 
