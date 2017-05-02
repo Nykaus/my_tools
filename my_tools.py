@@ -47,18 +47,6 @@ class GetPathCommand(sublime_plugin.TextCommand):
 		tabRegion=self.view.sel()	
 		self.view.replace(edit, tabRegion[0], str(self.view.file_name()))
 
-#ctrl+alt+q
-class GetFileCommand(sublime_plugin.TextCommand):
-	def run(self , edit):
-		tabRegion=self.view.sel()
-		folder_path = self.view.substr(tabRegion[0])
-		filesname="Liste des fichiers:\n"+folder_path+"\n\n"
-		for path, dirs, files in os.walk(folder_path):
-		    for filename in files:
-		    	filesname=filesname+"\n"+filename
-			
-		self.view.replace(edit, tabRegion[0], filesname)
-
 #ctrl+alt+x
 class StampHeureCommand(sublime_plugin.TextCommand):
 	def run(self,edit):
@@ -191,9 +179,16 @@ class GetCalendarCommand(sublime_plugin.TextCommand):
 		self.view.sel().add(pointEnd)
 		self.view.show(pointEnd)
 
-#  Faire la liste des packages
-#  Recuperer les instructions ctrl+..... avec la methode
-#  par ordre ctrl et de package
-#  ctrl+alt+?  pour la recherche
-#  avec selection du nom du package
-#  sans nom prende ceux de base
+#ctrl+alt+q
+#TODO a  ameliorer test pour recuperer tous les fichiers dans plusieurs dossier
+class GetFileCommand(sublime_plugin.TextCommand):
+	def run(self , edit):
+		tabRegion=self.view.sel()
+		folder_path = self.view.substr(tabRegion[0])
+		filesname="Liste des fichiers:\n"+folder_path+"\n\n"
+		for path, dirs, files in os.walk(folder_path):
+		    for filename in files:
+		    	filesname=filesname+"\n"+filename
+			
+		self.view.replace(edit, tabRegion[0], filesname)
+
