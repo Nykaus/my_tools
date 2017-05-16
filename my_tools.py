@@ -2,6 +2,28 @@ import sublime
 import sublime_plugin
 import os
 import re
+import webbrowser
+
+#ctrl+alt+g selection un url
+class FrToEnCommand(sublime_plugin.TextCommand):
+	def run(self,edit):
+		tabRegion=self.view.sel()
+		for laRegion in tabRegion:
+			laRecherche=self.view.substr(laRegion).replace(" ","+")
+			checkUrl="https://translate.google.fr/?hl=fr#fr/en/"+laRecherche
+			webbrowser.open(checkUrl)#ctrl+alt+g selection un url
+
+
+			
+#ctrl+alt+g selection un url
+class EnToFrCommand(sublime_plugin.TextCommand):
+	def run(self,edit):
+		tabRegion=self.view.sel()
+		for laRegion in tabRegion:
+			laRecherche=self.view.substr(laRegion).replace(" ","+")
+			checkUrl="https://translate.google.fr/?hl=en#en/fr/"+laRecherche
+			webbrowser.open(checkUrl)#ctrl+alt+g selection un url
+
 
 #ctrl+alt+c	
 class NumerotationCommand(sublime_plugin.TextCommand): 

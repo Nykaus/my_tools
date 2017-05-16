@@ -43,6 +43,8 @@
 		,{ "keys": ["ctrl+alt+x"]              , "command": "stamp_heure"}
 		// test
 		,{ "keys": ["ctrl+alt+k"]              , "command": "get_calendar"}
+		,{ "keys": ["ctrl+alt+1"]              , "command": "fr_to_en"}
+		,{ "keys": ["ctrl+alt+2"]              , "command": "en_to_fr"}
 
 ]
 
