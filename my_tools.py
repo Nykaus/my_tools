@@ -4,8 +4,51 @@ import os
 import re
 import html
 import webbrowser
+import urllib.request
 
 
+class GetContentHtmlCommand(sublime_plugin.TextCommand):
+	def run(self,edit):
+
+		#recuperation des selections faites sur l'editeur
+		tabRegion=self.view.sel()
+
+		for laRegion in tabRegion:
+			lUrl=re.sub("http[s]?://","",self.view.substr(laRegion))
+			print(lUrl)
+
+			if "/" in lUrl:
+				Url=lUrl.split("/",2)
+				nomDomaine=Url[0].replace("/","")
+				Uri=Url[1]
+			else:
+				nomDomaine=lUrl
+				Uri=""
+
+			checkUrl="http://"+lUrl
+			statusError=0
+
+			# ouverture de la page selectionner
+			try:
+				req = urllib.request.Request(checkUrl, data=None, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'} )
+				sock = urllib.request.urlopen(req)
+
+				htmlSource = sock.read().decode("utf-8", 'ignore')
+				sock.close()
+			except Exception as e:
+				statusError=1
+				msgErreur ="\n\n================ERREUR====================\n\t"
+				msgErreur +=str(e)+"\n\t"+self.view.substr(laRegion)
+				msgErreur +="\n==========================================\n\n"
+				self.view.replace(edit, laRegion,msgErreur)
+
+            # recuperation des informations est passé sans erreur
+			if(statusError==0):
+				# verifier si le contenu du site est récupéré
+				if(htmlSource==""):
+					self.view.replace(edit, laRegion,"ERREUR !! Auncun contenu pour URL: '"+checkUrl+"'")
+				else:
+					self.view.replace(edit, laRegion,htmlSource)
 
 #ctrl+alt+g selection un url
 class ListMethodCommand(sublime_plugin.TextCommand):
@@ -36,7 +79,7 @@ class FrToEnCommand(sublime_plugin.TextCommand):
 		for laRegion in tabRegion:
 			laRecherche=self.view.substr(laRegion).replace(" ","+")
 			checkUrl="https://translate.google.fr/?hl=fr#fr/en/"+laRecherche
-			webbrowser.open(checkUrl)#ctrl+alt+g selection un url
+			webbrowser.open(checkUrl)
 
 
 
@@ -47,7 +90,7 @@ class EnToFrCommand(sublime_plugin.TextCommand):
 		for laRegion in tabRegion:
 			laRecherche=self.view.substr(laRegion).replace(" ","+")
 			checkUrl="https://translate.google.fr/?hl=en#en/fr/"+laRecherche
-			webbrowser.open(checkUrl)#ctrl+alt+g selection un url
+			webbrowser.open(checkUrl)
 
 
 #ctrl+alt+c
