@@ -5,50 +5,61 @@ import re
 import html
 import webbrowser
 import urllib.request
+#import requests
 
 
-class GetContentHtmlCommand(sublime_plugin.TextCommand):
-	def run(self,edit):
+#package_dir = os.path.abspath(os.path.dirname(__file__))
 
-		#recuperation des selections faites sur l'editeur
-		tabRegion=self.view.sel()
-
-		for laRegion in tabRegion:
-			lUrl=re.sub("http[s]?://","",self.view.substr(laRegion))
-			print(lUrl)
-
-			if "/" in lUrl:
-				Url=lUrl.split("/",2)
-				nomDomaine=Url[0].replace("/","")
-				Uri=Url[1]
-			else:
-				nomDomaine=lUrl
-				Uri=""
-
-			checkUrl="http://"+lUrl
-			statusError=0
-
-			# ouverture de la page selectionner
-			try:
-				req = urllib.request.Request(checkUrl, data=None, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'} )
-				sock = urllib.request.urlopen(req)
-
-				htmlSource = sock.read().decode("utf-8", 'ignore')
-				sock.close()
-			except Exception as e:
-				statusError=1
-				msgErreur ="\n\n================ERREUR====================\n\t"
-				msgErreur +=str(e)+"\n\t"+self.view.substr(laRegion)
-				msgErreur +="\n==========================================\n\n"
-				self.view.replace(edit, laRegion,msgErreur)
-
-            # recuperation des informations est passé sans erreur
-			if(statusError==0):
-				# verifier si le contenu du site est récupéré
-				if(htmlSource==""):
-					self.view.replace(edit, laRegion,"ERREUR !! Auncun contenu pour URL: '"+checkUrl+"'")
-				else:
-					self.view.replace(edit, laRegion,htmlSource)
+#class GetContentHtmlCommand(sublime_plugin.TextCommand):
+#	def run(self,edit):
+#
+#		#recuperation des selections faites sur l'editeur
+#		tabRegion=self.view.sel()
+#
+#		for laRegion in tabRegion:
+#			lUrl=self.view.substr(laRegion)
+#			lUrl=re.sub("http[s]?://","",lUrl)
+#
+#			if "/" in lUrl:
+#				Url=lUrl.split("/",2)
+#				nomDomaine=Url[0].replace("/","")
+#				Uri=Url[1]
+#			else:
+#				nomDomaine=lUrl
+#				Uri=""
+#
+#			checkUrl="http://"+lUrl
+#			statusError=0
+#
+#			# ouverture de la page selectionner
+#			try:
+#				#local_filename, headers = urllib.request.urlretrieve(checkUrl,package_dir+"/html/copy.html")
+#				#print(headers)
+#				#html = open(local_filename)
+#				#html.close()
+#				#urllib.request.urlretrieve(checkUrl,package_dir+"\html\index.html")
+#				#print(package_dir+"\html\index.html")
+#				headers={'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.64 Safari/537.11', 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', 'Accept-Charset': 'ISO-8859-1,utf-8;q=0.7,*;q=0.3', 'Accept-Encoding': 'none', 'Accept-Language': 'en-US,en;q=0.8', 'Connection': 'keep-alive'}
+#
+#				req = urllib.request.Request(checkUrl, None, headers)
+#				sock = urllib.request.urlopen(req)
+#
+#				htmlSource = sock.read().decode("utf-8", 'ignore')
+#				sock.close()
+#			except Exception as e:
+#				statusError=1
+#				msgErreur ="\n\n================ERREUR====================\n\t"
+#				msgErreur +=str(e)+"\n\t"+self.view.substr(laRegion)
+#				msgErreur +="\n==========================================\n\n"
+#				self.view.replace(edit, laRegion,msgErreur)
+#
+#            # recuperation des informations est passé sans erreur
+#			if(statusError==0):
+#				# verifier si le contenu du site est récupéré
+#				if(htmlSource==""):
+#					self.view.replace(edit, laRegion,"ERREUR !! Auncun contenu pour URL: '"+checkUrl+"'")
+#				else:
+#					self.view.replace(edit, laRegion,htmlSource)
 
 #ctrl+alt+g selection un url
 class ListMethodCommand(sublime_plugin.TextCommand):

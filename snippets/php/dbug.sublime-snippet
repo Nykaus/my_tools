@@ -1,6 +1,5 @@
 <snippet>
-	<content><![CDATA[new dbug($0,[__FILE__,__LINE__]);
-exit();]]></content>
+	<content><![CDATA[var_dump($0);exit();]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>dbug</tabTrigger>
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
